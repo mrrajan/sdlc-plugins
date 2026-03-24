@@ -5,6 +5,22 @@ All notable changes to the sdlc-workflow plugin are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.3] - 2026-03-24
+
+### Changed
+
+- Added conditional PR branch checkout to verify-pr skill
+- Added systematic duplication-risk scan and Reuse Candidates section to plan-feature
+
+### Fixed
+
+- Replaced invalid --stat flag with gh api for diff size check in verify-pr
+
+### Documentation
+
+- Updated README with all four skills, complete doc index, and setup step
+- Added Mermaid diagram, expanded Verify Phase, and restructured Setup in workflow docs
+
 ## [0.4.2] - 2026-03-23
 
 ### Changed
