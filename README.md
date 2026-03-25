@@ -17,6 +17,9 @@ implementing tasks, and verifying pull requests:
 - **setup** — Set up or update the Project Configuration in your CLAUDE.md for
   use with sdlc-workflow skills.
 
+- **define-feature** — Interactively define a Jira Feature by walking through
+  all description template sections and creating the issue.
+
 - **plan-feature** — Convert a Jira feature into an implementation plan with
   structured Jira tasks. Analyzes repositories using Serena LSP, builds an
   impact map, and creates linked Jira tasks.
