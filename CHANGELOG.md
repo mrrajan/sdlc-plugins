@@ -5,6 +5,17 @@ All notable changes to the sdlc-workflow plugin are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.4] - 2026-03-25
+
+### Changed
+
+- Added convention conformance analysis guardrail to implement-task
+
+### Fixed
+
+- Used gh pr comment --edit-last for idempotent report posting in verify-pr
+- Added --jq to commit traceability and CI refresh for revised reports in verify-pr
+
 ## [0.4.3] - 2026-03-24
 
 ### Changed
