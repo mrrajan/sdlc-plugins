@@ -40,12 +40,9 @@ When bumping the version, update both files together.
 
 When Atlassian MCP is unavailable, skills can fall back to JIRA REST API v3. Credentials are optional and only needed if MCP fails.
 
-Example configuration (uncomment and fill if using REST API fallback):
-<!--
 - Server URL: https://redhat.atlassian.net
-- Email: user@redhat.com
-- API Token: $JIRA_API_TOKEN  
--->
+- Email: rravi@redhat.com
+- API Token: $JIRA_API_TOKEN
 
 See `plugins/sdlc-workflow/shared/jira-api-token-guide.md` for setup instructions.
 
