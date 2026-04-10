@@ -202,13 +202,28 @@ def markdown_to_adf(md_text: str) -> Dict[str, Any]:
             })
             continue
 
-        # Heading level 2
+        # Heading level 2 - render as bold paragraph for task descriptions
         if block.startswith('## '):
+            # Split on first newline to separate header from any following content
+            lines = block.split('\n', 1)
+            header_text = lines[0][3:]  # Remove '## '
+
+            # Create bold paragraph for header
+            header_content = parse_inline_formatting(header_text)
+            for node in header_content:
+                if node.get("type") == "text":
+                    node["marks"] = node.get("marks", []) + [{"type": "strong"}]
             doc["content"].append({
-                "type": "heading",
-                "attrs": {"level": 2},
-                "content": parse_inline_formatting(block[3:])
+                "type": "paragraph",
+                "content": header_content
             })
+
+            # If there's content after the header on following lines, process it as regular paragraph
+            if len(lines) > 1 and lines[1].strip():
+                doc["content"].append({
+                    "type": "paragraph",
+                    "content": parse_inline_formatting(lines[1])
+                })
             continue
 
         # Bullet list
