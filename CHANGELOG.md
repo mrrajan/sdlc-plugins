@@ -5,6 +5,26 @@ All notable changes to the sdlc-workflow plugin are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2026-04-14
+
+### Changed
+
+- Added test doc comment check to verify-pr Step 12
+- Added REST API v3 fallback for Jira when MCP is unavailable
+- Updated Jira client description format
+- Added .env file support for credential management
+- Refactored Jira client to accept args directly instead of using subprocess
+
+### Fixed
+
+- Handle code blocks with blank lines and validate JSON input in Jira client
+
+### Documentation
+
+- Added CONVENTIONS.md to document project coding standards
+
+Thanks to @mrrajan for his contributions to this release!
+
 ## [0.5.11] - 2026-04-08
 
 ### Changed
