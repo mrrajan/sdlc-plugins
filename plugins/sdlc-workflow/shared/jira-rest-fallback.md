@@ -10,6 +10,40 @@ Skills must implement a graceful fallback pattern:
 3. **Use stored credentials if available** (no re-collection needed)
 4. **Support three user choices**: Use REST API, Skip JIRA, or Retry MCP
 
+## Script Execution Context
+
+**IMPORTANT**: The `scripts/jira-client.py` script is located in the plugin cache, not your current working directory.
+
+When a skill is invoked, Claude Code provides the skill base directory in the invocation message:
+```
+Base directory for this skill: /path/to/.claude/plugins/cache/sdlc-plugins/sdlc-workflow/<version>/skills/<skill-name>
+```
+
+The **plugin root** is 2 directory levels up from the skill base:
+- Skill base: `.../sdlc-workflow/0.6.0/skills/define-feature`
+- Plugin root: `.../sdlc-workflow/0.6.0` (go up 2 levels)
+
+**All script invocations must use this pattern:**
+```bash
+cd <plugin-root> && python3 scripts/jira-client.py <command>
+```
+
+Where `<plugin-root>` is extracted from the skill base directory shown in the invocation header.
+
+**Example:**
+If the skill invocation shows:
+```
+Base directory for this skill: /home/user/.claude/plugins/cache/sdlc-plugins/sdlc-workflow/0.6.0/skills/define-feature
+```
+
+Then plugin root is: `/home/user/.claude/plugins/cache/sdlc-plugins/sdlc-workflow/0.6.0`
+
+Use:
+```bash
+cd /home/user/.claude/plugins/cache/sdlc-plugins/sdlc-workflow/0.6.0 && \
+  python3 scripts/jira-client.py get_user_info
+```
+
 ## Credential Storage
 
 Credentials are stored in **`.env` file** (recommended) or **CLAUDE.md** (legacy):
@@ -120,7 +154,7 @@ export JIRA_EMAIL="<email>"
 export JIRA_API_TOKEN="<api-token>"
 
 # Test with get_user_info
-python3 scripts/jira-client.py get_user_info
+cd <plugin-root> && python3 scripts/jira-client.py get_user_info
 ```
 
 On success:
@@ -230,7 +264,8 @@ export JIRA_API_TOKEN="<from-CLAUDE.md-or-env-var>"
 
 **Get Issue:**
 ```bash
-python3 scripts/jira-client.py get_issue TC-123 --fields "summary,status,description,labels,assignee"
+cd <plugin-root> && \
+  python3 scripts/jira-client.py get_issue TC-123 --fields "summary,status,description,labels,assignee"
 ```
 
 Returns JSON:
@@ -249,12 +284,13 @@ Returns JSON:
 
 **Create Issue:**
 ```bash
-python3 scripts/jira-client.py create_issue \
-  --project TC \
-  --summary "New feature request" \
-  --description-md "This is the **description** in markdown." \
-  --issue-type "10142" \
-  --labels ai-generated-jira,feature
+cd <plugin-root> && \
+  python3 scripts/jira-client.py create_issue \
+    --project TC \
+    --summary "New feature request" \
+    --description-md "This is the **description** in markdown." \
+    --issue-type "10142" \
+    --labels ai-generated-jira,feature
 ```
 
 Returns JSON:
@@ -267,49 +303,53 @@ Returns JSON:
 
 **Update Issue:**
 ```bash
-python3 scripts/jira-client.py update_issue TC-123 \
-  --fields-json '{"labels": ["ai-generated-jira", "updated"]}'
+cd <plugin-root> && \
+  python3 scripts/jira-client.py update_issue TC-123 \
+    --fields-json '{"labels": ["ai-generated-jira", "updated"]}'
 ```
 
 **Add Comment:**
 ```bash
-python3 scripts/jira-client.py add_comment TC-123 \
-  --comment-md "This is a comment with **bold** text."
+cd <plugin-root> && \
+  python3 scripts/jira-client.py add_comment TC-123 \
+    --comment-md "This is a comment with **bold** text."
 ```
 
 **Transition Issue:**
 ```bash
 # First, get available transitions
-python3 scripts/jira-client.py get_transitions TC-123
+cd <plugin-root> && python3 scripts/jira-client.py get_transitions TC-123
 
 # Then transition using the ID
-python3 scripts/jira-client.py transition_issue TC-123 --transition-id 31
+cd <plugin-root> && python3 scripts/jira-client.py transition_issue TC-123 --transition-id 31
 ```
 
 **Search with JQL:**
 ```bash
-python3 scripts/jira-client.py search_jql \
-  --jql "project = TC AND status = 'In Progress'" \
-  --fields "summary,status,assignee" \
-  --max-results 50
+cd <plugin-root> && \
+  python3 scripts/jira-client.py search_jql \
+    --jql "project = TC AND status = 'In Progress'" \
+    --fields "summary,status,assignee" \
+    --max-results 50
 ```
 
 **Create Issue Link:**
 ```bash
-python3 scripts/jira-client.py create_link \
-  --inward TC-123 \
-  --outward TC-456 \
-  --link-type Incorporates
+cd <plugin-root> && \
+  python3 scripts/jira-client.py create_link \
+    --inward TC-123 \
+    --outward TC-456 \
+    --link-type Incorporates
 ```
 
 **Get User Info:**
 ```bash
-python3 scripts/jira-client.py get_user_info
+cd <plugin-root> && python3 scripts/jira-client.py get_user_info
 ```
 
 **Get Project Metadata:**
 ```bash
-python3 scripts/jira-client.py get_project_metadata TC
+cd <plugin-root> && python3 scripts/jira-client.py get_project_metadata TC
 ```
 
 ## Error Handling
