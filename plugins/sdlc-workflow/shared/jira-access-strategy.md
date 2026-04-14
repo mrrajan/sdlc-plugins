@@ -53,6 +53,11 @@ Use the REST API only when:
 
 All REST API operations use the Python client at `scripts/jira-client.py`.
 
+**Script Location:**
+The script is in the plugin cache. Extract the plugin root from the skill base directory (shown in the skill invocation header) and cd to it before running commands. See `shared/jira-rest-fallback.md` for details.
+
+All examples below use `<plugin-root>` as a placeholder for the actual plugin root path.
+
 **Environment Variables:**
 ```bash
 export JIRA_SERVER_URL="https://your-domain.atlassian.net"
@@ -64,28 +69,32 @@ export JIRA_API_TOKEN="your-api-token"
 
 ```bash
 # Get issue
-python3 scripts/jira-client.py get_issue TC-123 --fields "summary,status,description"
+cd <plugin-root> && \
+  python3 scripts/jira-client.py get_issue TC-123 --fields "summary,status,description"
 
 # Create issue
-python3 scripts/jira-client.py create_issue \
-  --project TC \
-  --summary "Issue summary" \
-  --description-md "Issue description in **markdown**" \
-  --issue-type Task \
-  --labels ai-generated-jira
+cd <plugin-root> && \
+  python3 scripts/jira-client.py create_issue \
+    --project TC \
+    --summary "Issue summary" \
+    --description-md "Issue description in **markdown**" \
+    --issue-type Task \
+    --labels ai-generated-jira
 
 # Add comment
-python3 scripts/jira-client.py add_comment TC-123 \
-  --comment-md "Comment text in markdown"
+cd <plugin-root> && \
+  python3 scripts/jira-client.py add_comment TC-123 \
+    --comment-md "Comment text in markdown"
 
 # Transition issue
-python3 scripts/jira-client.py transition_issue TC-123 --transition-id 31
+cd <plugin-root> && python3 scripts/jira-client.py transition_issue TC-123 --transition-id 31
 
 # Create issue link
-python3 scripts/jira-client.py create_link \
-  --inward TC-123 \
-  --outward TC-456 \
-  --link-type Blocks
+cd <plugin-root> && \
+  python3 scripts/jira-client.py create_link \
+    --inward TC-123 \
+    --outward TC-456 \
+    --link-type Blocks
 ```
 
 For full API reference, see `shared/jira-rest-fallback.md`.
