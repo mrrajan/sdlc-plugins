@@ -23,7 +23,7 @@ The **plugin root** is 2 directory levels up from the skill base:
 - Skill base: `.../sdlc-workflow/0.6.0/skills/define-feature`
 - Plugin root: `.../sdlc-workflow/0.6.0` (go up 2 levels)
 
-**All script invocations must use this pattern:**
+**All JIRA REST API Python client script invocations must use this pattern:**
 ```bash
 cd <plugin-root> && python3 scripts/jira-client.py <command>
 ```
@@ -240,7 +240,7 @@ Add to ~/.bashrc or ~/.zshrc to persist across sessions.
 **Option 3: Don't store**
 Skip credential storage. Credentials will be asked for on every MCP failure.
 
-## Using the Python Client
+## Using the JIRA REST API Python Client Script
 
 All REST API operations use `scripts/jira-client.py`.
 
@@ -354,7 +354,7 @@ cd <plugin-root> && python3 scripts/jira-client.py get_project_metadata TC
 
 ## Error Handling
 
-The Python client automatically maps HTTP errors to user-friendly messages:
+The JIRA REST API Python client script automatically maps HTTP errors to user-friendly messages:
 
 **401 Unauthorized:**
 ```
@@ -405,7 +405,7 @@ If "1. Update token":
 ## Token Security
 
 **Masking:**
-The Python client automatically masks tokens in all output:
+The JIRA REST API Python client script automatically masks tokens in all output:
 - Full token: `ATATT3xFfGF0T8JxQkVmNzY5MjE3NjE3MDk2`
 - Masked: `ATATT3xF...3MDk2`
 
@@ -421,7 +421,7 @@ The Python client automatically masks tokens in all output:
 
 ## Markdown to ADF Conversion
 
-The Python client automatically converts markdown to Atlassian Document Format (ADF) when creating issues or adding comments.
+The JIRA REST API Python client script automatically converts markdown to Atlassian Document Format (ADF) when creating issues or adding comments.
 
 **Supported Markdown:**
 - Headings: `# H1` and `## H2`

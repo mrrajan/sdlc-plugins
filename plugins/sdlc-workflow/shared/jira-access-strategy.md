@@ -49,9 +49,9 @@ Use the REST API only when:
 
 **How to get an API token**: https://id.atlassian.com/manage-profile/security/api-tokens
 
-### Using the Python Client
+### Using the JIRA REST API Python Client
 
-All REST API operations use the Python client at `scripts/jira-client.py`.
+All REST API operations use the JIRA REST API Python client script at `scripts/jira-client.py`.
 
 **Script Location:**
 The script is in the plugin cache. Extract the plugin root from the skill base directory (shown in the skill invocation header) and cd to it before running commands. See `shared/jira-rest-fallback.md` for details.
